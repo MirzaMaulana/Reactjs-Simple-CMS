@@ -39,9 +39,9 @@ function PostIndex() {
               <div className="card-body">
                 <small className="text-muted d-flex justify-content-between">
                   <p>
-                    <a href="" className="text-decoration-none text-dark">
+                    <small className="text-decoration-none text-dark">
                       {post.created_by}
-                    </a>
+                    </small>
                   </p>
                   <p>{post.views}</p>
                 </small>

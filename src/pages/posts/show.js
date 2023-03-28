@@ -52,6 +52,7 @@ function PostShow() {
               <ListGroup.Item key={comments.id}>
                 <h5>{comments.name}</h5>
                 <p>{comments.content}</p>
+                <small>{comments.created_at_format}</small>
               </ListGroup.Item>
             ))}
           </ListGroup>

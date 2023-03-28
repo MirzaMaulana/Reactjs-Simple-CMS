@@ -1,23 +1,22 @@
-//import component Bootstrap React
 import { Navbar, Container, Nav } from "react-bootstrap";
-//import react router dom
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-
-//import component Home
+import React, { useState } from "react";
 import Home from "./pages/Home";
-
-//import component Post Index
 import PostIndex from "./pages/posts/Index";
-
-//import component Post Create
 import PostCreate from "./pages/posts/Create";
-
-//import component Post Edit
 import PostEdit from "./pages/posts/Edit";
-
 import PostShow from "./pages/posts/show";
+import Login from "./pages/Login";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    alert("Berhasil logout");
+  };
+
   return (
     <Router>
       <div>
@@ -33,11 +32,20 @@ function App() {
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link as={Link} to="/" className="nav-link">
-                  HOME
+                  Home
                 </Nav.Link>
                 <Nav.Link as={Link} to="/posts" className="nav-link">
-                  POSTS
+                  Posts
                 </Nav.Link>
+                {isLoggedIn ? (
+                  <Nav.Link onClick={handleLogout} className="nav-link ms-auto">
+                    Logout
+                  </Nav.Link>
+                ) : (
+                  <Nav.Link as={Link} to="/login" className="nav-link ms-auto">
+                    Login
+                  </Nav.Link>
+                )}
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -49,6 +57,7 @@ function App() {
           <Route path="/posts/create" element={<PostCreate />} />
           <Route path="/posts/edit/:id" element={<PostEdit />} />
           <Route path="/post/:id" element={<PostShow />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </Router>
