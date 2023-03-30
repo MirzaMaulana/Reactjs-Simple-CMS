@@ -29,7 +29,7 @@ function PostIndex() {
       <Row>
         {posts.map((post) => (
           <Col md="4" key={post.id} className="mb-3">
-            <Card>
+            <Card className="border-0">
               <img
                 src="https://source.unsplash.com/random"
                 height="200"
@@ -43,7 +43,7 @@ function PostIndex() {
                       {post.created_by}
                     </small>
                   </p>
-                  <p>{post.views}</p>
+                  <p>{post.views} Views</p>
                 </small>
                 <h5 className="card-title d-flex justify-content-between">
                   <a

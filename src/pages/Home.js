@@ -1,94 +1,51 @@
 //import component Bootstrap React
-import { Alert, Carousel, Container, Row, Col } from "react-bootstrap";
-import React, { useState } from "react";
+import { Container } from "react-bootstrap";
+import "./Home.css";
+import React from "react";
+import PostIndex from "./posts/Index";
 
 function Home() {
-  const [show, setShow] = useState(true);
   return (
     <Container>
-      {show && (
-        <Alert variant="success" onClose={() => setShow(false)} dismissible>
-          Website ini masih dalam pengembangan!!
-        </Alert>
-      )}
-      <Row>
-        <Col>
-          <Carousel>
-            <Carousel.Item interval={1000}>
-              <img
-                className="d-block w-100"
-                src="https://source.unsplash.com/random/600x400"
-                alt="First slide"
-              />
-              <Carousel.Caption>
-                <h3>First slide label</h3>
-                <p>
-                  Nulla vitae elit libero, a pharetra augue mollis interdum.
-                </p>
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item interval={500}>
-              <img
-                className="d-block w-100"
-                src="https://source.unsplash.com/random/600x400"
-                alt="Second slide"
-              />
-              <Carousel.Caption>
-                <h3>Second slide label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src="https://source.unsplash.com/random/600x400"
-                alt="Third slide"
-              />
-              <Carousel.Caption>
-                <h3>Third slide label</h3>
-                <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur.
-                </p>
-              </Carousel.Caption>
-            </Carousel.Item>
-          </Carousel>
-        </Col>
-        <Col>
-          <Row>
-            <Col md="{12}" className="my-2 d-flex">
-              <img src="https://source.unsplash.com/random/150x100" />
-              <div className="mx-2">
-                <h5>Berita Terkini</h5>
-                <p>
-                  Website is still under development and being developed using
-                  React JS
-                </p>
-              </div>
-            </Col>
-            <Col md="{12}" className="my-2 d-flex">
-              <img src="https://source.unsplash.com/random/150x100" />
-              <div className="mx-2">
-                <h5>Berita Terkini</h5>
-                <p>
-                  Website is still under development and being developed using
-                  React JS
-                </p>
-              </div>
-            </Col>
-            <Col md="{12}" className="my-2 d-flex">
-              <img src="https://source.unsplash.com/random/150x100" />
-              <div className="mx-2">
-                <h5>Berita Terkini</h5>
-                <p>
-                  Website is still under development and being developed using
-                  React JS
-                </p>
-              </div>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      <div className="jumbotron jumbotron-fluid my-5">
+        <div className="container text-center">
+          <h1 className="display-5">Best Of The Week</h1>
+          <p className="lead" style={{ fontFamily: "Roboto Slab" }}>
+            Delivering the Latest, In-Depth, and Accurate News to Expand Your
+            Insights.
+          </p>
+        </div>
+      </div>
+      <div className="header text-center col-md-11 mx-auto">
+        <img
+          src="https://source.unsplash.com/random/1100x500"
+          alt="Web berita"
+          className="img-fluid mt-3"
+        />
+        <div
+          className="title card position-absolute p-1 shadow mb-3"
+          style={{ marginTop: -50 }}
+        >
+          <div className="card-body text-start">
+            <small className="text-secondary">Olivia Rhye • 30 Mar 2023</small>
+            <h3 className="card-title" style={{ fontFamily: "Roboto Slab" }}>
+              The Impact of Technology on Modern Society
+            </h3>
+            <p className="card-text">
+              Technology has become an integral part of modern society, with
+              advancements in communication.
+            </p>
+            <div className="category">
+              <small className="me-2">Technology</small>
+              <small className="me-2">Design</small>
+              <small className="me-2">Programming</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="col-md-11 mx-auto">
+        <PostIndex />
+      </div>
     </Container>
   );
 }
