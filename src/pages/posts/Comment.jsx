@@ -8,26 +8,27 @@ const Comment = ({ id }) => {
 
   const commentHandler = async (e) => {
     e.preventDefault();
-    await axios
-      .post(
-        `http://localhost:8000/api/v1/post/${id}/comment`,
-        {
-          content,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+    try {
+      await axios
+        .post(
+          `http://localhost:8000/api/v1/post/${id}/comment`,
+          {
+            content,
           },
-        }
-      )
-      .then((response) => {
-        console.log(response.data);
-        setContent("");
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response.data);
+          setContent("");
+        });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

@@ -5,8 +5,10 @@ import PostIndex from "./pages/posts/Index";
 import PostCreate from "./pages/posts/Create";
 import PostEdit from "./pages/posts/Edit";
 import PostShow from "./pages/posts/show";
-import Login from "./pages/Login";
+import Login from "./Auth/Login";
 import CustomNav from "./pages/component/CustomNav";
+import SignUp from "./Auth/SignUp";
+import ForgetPassword from "./Auth/ForgetPassword";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route path="/posts/edit/:id" element={<PostEdit />} />
           <Route path="/post/:id" element={<PostShow />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
         </Routes>
       </div>
     </Router>

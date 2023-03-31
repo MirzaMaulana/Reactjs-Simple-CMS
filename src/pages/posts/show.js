@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ListGroup, Card, Container, Row, Col, Button } from "react-bootstrap";
+import { ListGroup, Container, Row, Col, Button } from "react-bootstrap";
 import Comment from "./Comment";
 import axios from "axios";
 
 function PostShow() {
+  const token = localStorage.getItem("token");
   const [post, setPost] = useState({});
   var { id } = useParams();
   const navigate = useNavigate();
@@ -31,22 +32,34 @@ function PostShow() {
     <Container>
       <Row className="justify-content-md-center mt-4">
         <Col md={10}>
-          <Card>
-            <Card.Img src="https://source.unsplash.com/random" height={400} />
-            <Card.Body>
-              <h1 className="text-center">{post.title}</h1>
-              <Card.Text>{post.content}</Card.Text>
-              <Button className="btn btn-success" onClick={Back}>
-                Back To Post
-              </Button>
-            </Card.Body>
-          </Card>
+          <div>
+            <h1 className="text-center">{post.title}</h1>
+            <img
+              src="https://source.unsplash.com/random/1000x400"
+              alt="Random"
+              className="img-fluid my-4"
+            />
+            <p>{post.content}</p>
+            <Button className="btn btn-success" onClick={Back}>
+              Back To Post
+            </Button>
+          </div>
         </Col>
       </Row>
+
       <Row className="justify-content-md-center mt-3">
-        <Col md="10" className="my-4">
-          <Comment id={id} />
-        </Col>
+        {token ? (
+          <Col md="10" className="my-4">
+            <Comment id={id} />
+          </Col>
+        ) : (
+          <Col md="10" className="my-4">
+            <h5 className="alert alert-warning">
+              Anda Harus Login Terlebih Dahulu Jika Mau Berkomentar
+            </h5>
+          </Col>
+        )}
+
         <Col md="10">
           <h2>Comments ( {comment.length} )</h2>
           <ListGroup className="mt-3">

@@ -33,10 +33,10 @@ function PostIndex() {
               <img
                 src="https://source.unsplash.com/random"
                 height="200"
-                className="card-img-top"
+                className="card-img-top rounded-2"
                 alt=""
               />
-              <div className="card-body">
+              <div className="m-2">
                 <small className="text-muted d-flex justify-content-between">
                   <p>
                     <small className="text-decoration-none text-dark">
@@ -59,6 +59,7 @@ function PostIndex() {
                 <p className="card-text">
                   {post.content.replace(/<[^>]+>/g, "").substring(0, 50)}...
                 </p>
+                <small className="text-secondary">{post.created_at}</small>
               </div>
             </Card>
           </Col>

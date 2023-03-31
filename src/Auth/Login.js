@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -39,14 +39,17 @@ function Login() {
   return (
     <Container>
       <Row>
-        <Col md="8" className="mx-auto">
-          <h3 className="text-center">Login Dulu Masbro</h3>
-          <Card className="p-4">
+        <Col md="5" className="mx-auto">
+          <Card className="px-4 pt-3 rounded-4 mt-5">
+            <h3 className="text-center" style={{ fontFamily: "Roboto Slab" }}>
+              Login
+            </h3>
+            <small className="text-secondary text-center">
+              Login and lets get started
+            </small>
             <form onSubmit={loginHandler}>
               <div className="mb-3">
-                <label htmlFor="exampleInputEmail1" className="form-label">
-                  Email address
-                </label>
+                <small className="form-label">Email address</small>
                 <input
                   type="email"
                   className="form-control"
@@ -60,9 +63,7 @@ function Login() {
                 </div>
               </div>
               <div className="mb-3">
-                <label htmlFor="exampleInputPassword1" className="form-label">
-                  Password
-                </label>
+                <small className="form-label">Password</small>
                 <input
                   type="password"
                   className="form-control"
@@ -71,9 +72,20 @@ function Login() {
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </div>
-              <button type="submit" className="btn btn-primary">
+              <p className="text-end text-success">Forget Password?</p>
+              <button type="submit" className="mb-3 btn btn-success w-100">
                 Submit
               </button>
+              <p className="text-center">
+                Don't have an account yet?
+                <Link
+                  as={Link}
+                  to="/signup"
+                  className="ms-2 text-decoration-none text-success"
+                >
+                  SignUp
+                </Link>
+              </p>
             </form>
           </Card>
         </Col>

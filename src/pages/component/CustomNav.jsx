@@ -39,14 +39,14 @@ function CustomNav() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mx-auto">
-            <Nav.Link as={Link} to="/" className="nav-link">
+            <Nav.Link as={Link} to="/" className="nav-link ms-5">
               Home
             </Nav.Link>
             <Nav.Link as={Link} to="/posts" className="nav-link">
               Posts
             </Nav.Link>
             <Nav.Link as={Link} to="/" className="nav-link">
-              About Us
+              Profile
             </Nav.Link>
             <Nav.Link as={Link} to="/" className="nav-link">
               Contact
@@ -67,7 +67,7 @@ function CustomNav() {
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
-                  to="/login"
+                  to="/signup"
                   className="btn btn-dark ms-2 text-light nav-link"
                 >
                   SignUp
