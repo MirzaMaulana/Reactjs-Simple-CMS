@@ -5,7 +5,6 @@ import { useState } from "react";
 
 function CustomNav() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);

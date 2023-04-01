@@ -72,7 +72,16 @@ function Login() {
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </div>
-              <p className="text-end text-success">Forget Password?</p>
+              <p className="text-end">
+                <Link
+                  as={Link}
+                  to="/forget-password"
+                  className="text-decoration-none text-success"
+                >
+                  Forget Password?
+                </Link>
+              </p>
+
               <button type="submit" className="mb-3 btn btn-success w-100">
                 Submit
               </button>

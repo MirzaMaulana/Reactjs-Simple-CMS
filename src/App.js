@@ -9,6 +9,8 @@ import Login from "./Auth/Login";
 import CustomNav from "./pages/component/CustomNav";
 import SignUp from "./Auth/SignUp";
 import ForgetPassword from "./Auth/ForgetPassword";
+import ChangePassword from "./Auth/ChangePassword";
+import VerificationPassword from "./Auth/VerificationPassword";
 
 function App() {
   return (
@@ -24,6 +26,11 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route path="/Change-password" element={<ChangePassword />} />
+          <Route
+            path="/verification-password"
+            element={<VerificationPassword />}
+          />
         </Routes>
       </div>
     </Router>

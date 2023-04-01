@@ -1,10 +1,36 @@
 import React, { useState } from "react";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ForgetPassword() {
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+
+  const ForgetPasswordHandler = async (e) => {
+    e.preventDefault();
+
+    await axios
+      .post(
+        "http://localhost:8000/api/v1/password/reset",
+        {
+          email,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        navigate("/verification-password");
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  };
+
   return (
     <Container>
       <Row>
@@ -16,7 +42,7 @@ function ForgetPassword() {
             <small className="text-secondary text-center">
               input your email address account to receive to reset link
             </small>
-            <form>
+            <form onSubmit={ForgetPasswordHandler}>
               <div className="my-3">
                 <small className="form-label">Email address</small>
                 <input
@@ -31,7 +57,7 @@ function ForgetPassword() {
                   We'll never share your email with anyone else.
                 </div>
               </div>
-              <button type="submit" className="mb-3 btn btn-success w-100">
+              <button type="submit" className="mb-4 btn btn-success w-100">
                 Continue
               </button>
             </form>
