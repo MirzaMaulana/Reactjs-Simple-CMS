@@ -11,6 +11,9 @@ import SignUp from "./Auth/SignUp";
 import ForgetPassword from "./Auth/ForgetPassword";
 import ChangePassword from "./Auth/ChangePassword";
 import VerificationPassword from "./Auth/VerificationPassword";
+import ProtectedRoute from "./pages/component/ProtectedRoute";
+import UserProfile from "./Profile/Profile";
+import ProfileEdit from "./Profile/EditProfile";
 
 function App() {
   return (
@@ -20,8 +23,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<PostIndex />} />
-          <Route path="/posts/create" element={<PostCreate />} />
-          <Route path="/posts/edit/:id" element={<PostEdit />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/posts/create" element={<PostCreate />} />
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/profile/edit" element={<ProfileEdit />} />
+            <Route path="/posts/edit/:id" element={<PostEdit />} />
+          </Route>
           <Route path="/post/:id" element={<PostShow />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />

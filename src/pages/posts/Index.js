@@ -59,6 +59,7 @@ function PostIndex() {
                 <p className="card-text">
                   {post.content.replace(/<[^>]+>/g, "").substring(0, 50)}...
                 </p>
+                <small className="px-1 border-1">{post.tags.name}</small>
                 <small className="text-secondary">{post.created_at}</small>
               </div>
             </Card>

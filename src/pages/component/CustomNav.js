@@ -44,7 +44,7 @@ function CustomNav() {
             <Nav.Link as={Link} to="/posts" className="nav-link">
               Posts
             </Nav.Link>
-            <Nav.Link as={Link} to="/" className="nav-link">
+            <Nav.Link as={Link} to="/profile" className="nav-link">
               Profile
             </Nav.Link>
             <Nav.Link as={Link} to="/" className="nav-link">
