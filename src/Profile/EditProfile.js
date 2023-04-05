@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
@@ -12,6 +12,24 @@ function ProfileEdit() {
 
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dataProfile();
+  });
+
+  const dataProfile = async () => {
+    const response = await axios.get(`http://localhost:8000/api/v1/profile`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    const data = response.data.data;
+    setName(data.name);
+    setJenisKelamin(data.jenis_kelamin);
+    setAlamat(data.alamat);
+    setTanggalLahir(data.tanggal_lahir);
+  };
 
   const editHandler = async (e) => {
     e.preventDefault();

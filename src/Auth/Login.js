@@ -29,7 +29,7 @@ function Login() {
         console.log(response.data.token);
         localStorage.setItem("token", response.data.token);
 
-        navigate("/posts");
+        navigate("/profile");
       })
       .catch((error) => {
         console.log(error.response.data);

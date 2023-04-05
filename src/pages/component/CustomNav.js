@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -53,12 +53,17 @@ function CustomNav() {
           </Nav>
           <Nav className="ms-auto">
             {isLoggedIn ? (
-              <Nav.Link
-                onClick={handleLogout}
-                className="btn btn-dark ms-2 text-light nav-link"
-              >
-                Logout
-              </Nav.Link>
+              <NavDropdown title="Welcome Back" id="basic-nav-dropdown">
+                <NavDropdown.Item href="/dashboard/posts/list">
+                  <i className="bi bi-grid-fill"></i> Dashboard
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  onClick={handleLogout}
+                  className="text-light bg-dark "
+                >
+                  <i className="bi bi-box-arrow-left"></i> Logout
+                </NavDropdown.Item>
+              </NavDropdown>
             ) : (
               <>
                 <Nav.Link as={Link} to="/login" className="nav-link">

@@ -8,17 +8,13 @@ import { Card, Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 
 function PostIndex() {
-  //define state
   const [posts, setPosts] = useState([]);
 
-  //useEffect hook
   useEffect(() => {
     fectData();
   }, []);
 
-  //function "fetchData"
   const fectData = async () => {
-    //fetching
     const response = await axios.get("http://localhost:8000/api/v1/post/list");
     const data = await response.data.data;
     setPosts(data);
@@ -59,7 +55,6 @@ function PostIndex() {
                 <p className="card-text">
                   {post.content.replace(/<[^>]+>/g, "").substring(0, 50)}...
                 </p>
-                <small className="px-1 border-1">{post.tags.name}</small>
                 <small className="text-secondary">{post.created_at}</small>
               </div>
             </Card>

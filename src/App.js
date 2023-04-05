@@ -2,8 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
 import Home from "./pages/Home";
 import PostIndex from "./pages/posts/Index";
-import PostCreate from "./pages/posts/Create";
-import PostEdit from "./pages/posts/Edit";
 import PostShow from "./pages/posts/show";
 import Login from "./Auth/Login";
 import CustomNav from "./pages/component/CustomNav";
@@ -14,7 +12,9 @@ import VerificationPassword from "./Auth/VerificationPassword";
 import ProtectedRoute from "./pages/component/ProtectedRoute";
 import UserProfile from "./Profile/Profile";
 import ProfileEdit from "./Profile/EditProfile";
-
+import List from "./Admin/posts/List";
+import CreatePost from "./Admin/posts/Create";
+import UpdatePost from "./Admin/posts/Update";
 function App() {
   return (
     <Router>
@@ -24,10 +24,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<PostIndex />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="/posts/create" element={<PostCreate />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/profile/edit" element={<ProfileEdit />} />
-            <Route path="/posts/edit/:id" element={<PostEdit />} />
+            <Route path="/dashboard/posts/list" element={<List />} />
+            <Route path="/dashboard/posts/create" element={<CreatePost />} />
+            <Route
+              path="/dashboard/posts/update/:id"
+              element={<UpdatePost />}
+            />
           </Route>
           <Route path="/post/:id" element={<PostShow />} />
           <Route path="/login" element={<Login />} />
