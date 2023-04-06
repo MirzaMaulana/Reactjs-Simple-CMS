@@ -15,7 +15,7 @@ function ProfileEdit() {
 
   useEffect(() => {
     dataProfile();
-  });
+  }, []);
 
   const dataProfile = async () => {
     const response = await axios.get(`http://localhost:8000/api/v1/profile`, {

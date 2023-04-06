@@ -15,7 +15,7 @@ function UpdatePost() {
 
   useEffect(() => {
     getPostId();
-  });
+  }, []);
 
   //mendapatkan value post
   const getPostId = async () => {
