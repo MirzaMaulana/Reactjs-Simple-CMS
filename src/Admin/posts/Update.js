@@ -9,10 +9,35 @@ function UpdatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { id } = useParams();
+  const [tags, setTags] = useState([]);
+  const [tag, setTag] = useState([]);
 
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  useEffect(() => {
+    tagsData();
+  }, []);
 
+  const tagsData = async () => {
+    await axios
+      .get("http://localhost:8000/api/v1/tag/all")
+      .then((response) => {
+        const data = response.data.data;
+        setTags(data);
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  };
+
+  const handleTagChange = (event) => {
+    const tagId = parseInt(event.target.value);
+    if (event.target.checked) {
+      setTag([...tag, tagId]);
+    } else {
+      setTag(tag.filter((id) => id !== tagId));
+    }
+  };
   useEffect(() => {
     getPostId();
   }, []);
@@ -40,6 +65,7 @@ function UpdatePost() {
         `http://localhost:8000/api/v1/post/update/${id}`,
         {
           title,
+          tag,
           content,
         },
         {
@@ -90,11 +116,28 @@ function UpdatePost() {
                 <div className="mb-3">
                   <label className="form-label">Content</label>
                   <textarea
-                    className="form-control"
+                    className="form-control mb-3"
                     value={content}
                     onChange={(event) => setContent(event.target.value)}
                     rows="3"
                   ></textarea>
+                  {tags.map((tag) => (
+                    <div key={tag.id} className="form-check form-check-inline">
+                      <input
+                        className="form-check-input me-2"
+                        type="checkbox"
+                        id={`tag${tag.id}`}
+                        value={tag.id}
+                        onChange={handleTagChange}
+                      />
+                      <label
+                        className="form-check-label text-primary"
+                        htmlFor={`tag${tag.id}`}
+                      >
+                        #{tag.name}
+                      </label>
+                    </div>
+                  ))}
                 </div>
                 <Button type="submit" variant="success">
                   Update Post
