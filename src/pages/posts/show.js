@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { ListGroup, Container, Row, Col, Button } from "react-bootstrap";
 import Comment from "./Comment";
 import axios from "axios";
@@ -7,19 +7,22 @@ import axios from "axios";
 function PostShow() {
   const token = localStorage.getItem("token");
   const [post, setPost] = useState({});
-  var { id } = useParams();
+  const [tags, setTags] = useState([]);
+  const { id } = useParams();
   const navigate = useNavigate();
   const [comment, setComment] = useState([]);
 
   useEffect(() => {
     fetchData();
-  });
+  }, [comment]);
 
   const fetchData = async () => {
     const response = await axios.get(
       `http://localhost:8000/api/v1/post/show/${id}`
     );
     const data = response.data.data;
+    const tag = response.data.data.tags;
+    setTags(tag);
     setPost(data);
     setComment(data.comment);
   };
@@ -40,6 +43,18 @@ function PostShow() {
               className="img-fluid my-4"
             />
             <p>{post.content}</p>
+            <p>
+              {tags.map((tag) => (
+                <Link
+                  key={tag.id}
+                  as={Link}
+                  to={`/posts/${tag.name}`}
+                  className="text-decoration-none me-2"
+                >
+                  #{tag.name}
+                </Link>
+              ))}
+            </p>
             <Button className="btn btn-success" onClick={Back}>
               Back To Post
             </Button>

@@ -23,6 +23,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<PostIndex />} />
+          <Route path="/post/:id" element={<PostShow />} />
+          <Route path="/posts/:tag" element={<PostIndex />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/profile/edit" element={<ProfileEdit />} />
@@ -33,7 +35,6 @@ function App() {
               element={<UpdatePost />}
             />
           </Route>
-          <Route path="/post/:id" element={<PostShow />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forget-password" element={<ForgetPassword />} />

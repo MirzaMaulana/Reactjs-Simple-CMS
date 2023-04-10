@@ -60,7 +60,7 @@ function List() {
                   <tr>
                     <th>NO.</th>
                     <th>TITLE</th>
-                    <th>CONTENT</th>
+                    <th>CREATED BY</th>
                     <th>AKSI</th>
                   </tr>
                 </thead>
@@ -69,10 +69,7 @@ function List() {
                     <tr key={post.id}>
                       <td>{index + 1}</td>
                       <td>{post.title}</td>
-                      <td>
-                        {post.content.replace(/<[^>]+>/g, "").substring(0, 50)}
-                        ...
-                      </td>
+                      <td>{post.created_by}</td>
                       <td className="text-center d-flex">
                         <Button
                           as={Link}

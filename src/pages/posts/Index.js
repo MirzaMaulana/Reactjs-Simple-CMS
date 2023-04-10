@@ -4,18 +4,24 @@ import { useState, useEffect } from "react";
 //import component Bootstrap React
 import { Card, Container, Row, Col } from "react-bootstrap";
 
+import { useParams } from "react-router-dom";
 //import axios
 import axios from "axios";
 
 function PostIndex() {
   const [posts, setPosts] = useState([]);
+  const { tag } = useParams("");
 
   useEffect(() => {
     fectData();
-  }, []);
+  }, [tag]);
 
   const fectData = async () => {
-    const response = await axios.get("http://localhost:8000/api/v1/post/list");
+    let api = "http://localhost:8000/api/v1/post/list";
+    if (tag) {
+      api += `?tag=${tag}`;
+    }
+    const response = await axios.get(api);
     const data = await response.data.data;
     setPosts(data);
   };
@@ -23,6 +29,12 @@ function PostIndex() {
   return (
     <Container className="mt-3">
       <Row>
+        {tag ? (
+          <h2 className="my-2">#{tag}</h2>
+        ) : (
+          <h2 className="my-2">Most Populer</h2>
+        )}
+
         {posts.map((post) => (
           <Col md="4" key={post.id} className="mb-3">
             <Card className="border-0">

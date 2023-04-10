@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function CustomNav() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
