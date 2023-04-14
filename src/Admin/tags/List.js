@@ -5,22 +5,22 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Sidebar from "../component/Sidebar";
 
-function List() {
-  const [posts, setPosts] = useState([]);
+function ListTags() {
+  const [tags, setTags] = useState([]);
   const token = localStorage.getItem("token");
   useEffect(() => {
     fectData();
   }, []);
 
   const fectData = async () => {
-    const response = await axios.get("http://localhost:8000/api/v1/post/list");
+    const response = await axios.get("http://localhost:8000/api/v1/tag/all");
     const data = await response.data.data;
-    setPosts(data);
+    setTags(data);
   };
 
   const deleteHandler = async (id) => {
     axios
-      .delete(`http://localhost:8000/api/v1/post/delete/${id}`, {
+      .delete(`http://localhost:8000/api/v1/tag/delete/${id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -50,39 +50,39 @@ function List() {
             <Card.Body>
               <Button
                 as={Link}
-                to={"/dashboard/posts/create"}
+                to={"/dashboard/tags/create"}
                 variant="success"
                 className="mb-3"
               >
-                Add Post
+                Add Tag
               </Button>
               <Table striped bordered hover className="mb-1">
                 <thead>
                   <tr>
                     <th>NO.</th>
-                    <th>TITLE</th>
+                    <th>NAME</th>
                     <th>CREATED BY</th>
                     <th>AKSI</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {posts.map((post, index) => (
-                    <tr key={post.id}>
+                  {tags.map((tag, index) => (
+                    <tr key={tag.id}>
                       <td>{index + 1}</td>
-                      <td>{post.title}</td>
-                      <td>{post.created_by}</td>
+                      <td>{tag.name}</td>
+                      <td>{tag.created_by}</td>
                       <td className="text-center d-flex">
                         <Button
                           as={Link}
                           className="btn me-2 btn-danger btn-sm"
-                          onClick={() => deleteHandler(post.id)}
+                          onClick={() => deleteHandler(tag.id)}
                         >
                           <i className="bi bi-trash"></i>
                         </Button>
                         <Link
                           as={Link}
                           className="btn btn-primary btn-sm"
-                          to={`/dashboard/posts/update/${post.id}`}
+                          to={`/dashboard/tags/update/${tag.id}`}
                         >
                           <i className="bi bi-pen"></i>
                         </Link>
@@ -99,4 +99,4 @@ function List() {
   );
 }
 
-export default List;
+export default ListTags;

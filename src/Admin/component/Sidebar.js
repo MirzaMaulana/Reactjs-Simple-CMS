@@ -29,6 +29,21 @@ function Sidebar() {
           List
         </NavDropdown.Item>
       </NavDropdown>
+      <NavDropdown
+        title={
+          <span className="bi bi-tag text-dark fs-5">
+            <span className="mx-3">Tags</span>
+          </span>
+        }
+        align="end"
+      >
+        <NavDropdown.Item as={Link} to="/dashboard/tags/create">
+          Create
+        </NavDropdown.Item>
+        <NavDropdown.Item as={Link} to="/dashboard/tags/list">
+          List
+        </NavDropdown.Item>
+      </NavDropdown>
     </Nav>
   );
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { ListGroup, Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import Comment from "./Comment";
 import axios from "axios";
 
@@ -10,32 +10,36 @@ function PostShow() {
   const [tags, setTags] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
-  const [comment, setComment] = useState([]);
+
+  // POST SINGLE SHOW
 
   useEffect(() => {
-    fetchData();
-  }, [comment]);
-
-  const fetchData = async () => {
-    const response = await axios.get(
-      `http://localhost:8000/api/v1/post/show/${id}`
-    );
-    const data = response.data.data;
-    const tag = response.data.data.tags;
-    setTags(tag);
-    setPost(data);
-    setComment(data.comment);
-  };
+    const getPostId = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/api/v1/post/show/${id}`
+        );
+        const { data } = response.data;
+        setTags(data.tags);
+        setPost(data);
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    };
+    getPostId();
+  }, [id]);
 
   function Back() {
     navigate(-1);
   }
+  // POST SINGLE SHOW
 
   return (
     <Container>
       <Row className="justify-content-md-center mt-4">
         <Col md={10}>
           <div>
+            <p>{post.views}</p>
             <h1 className="text-center">{post.title}</h1>
             <img
               src="https://source.unsplash.com/random/1000x400"
@@ -63,7 +67,7 @@ function PostShow() {
       </Row>
 
       <Row className="justify-content-md-center mt-3">
-        {token ? (
+        {!!token ? (
           <Col md="10" className="my-4">
             <Comment id={id} />
           </Col>
@@ -74,19 +78,6 @@ function PostShow() {
             </h5>
           </Col>
         )}
-
-        <Col md="10">
-          <h2>Comments ( {comment.length} )</h2>
-          <ListGroup className="mt-3">
-            {comment.map((comments) => (
-              <ListGroup.Item key={comments.id}>
-                <h5>{comments.name}</h5>
-                <p>{comments.content}</p>
-                <small>{comments.created_at_format}</small>
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
-        </Col>
       </Row>
     </Container>
   );

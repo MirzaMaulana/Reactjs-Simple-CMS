@@ -3,7 +3,7 @@ import { Container, Card, Button, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Sidebar from "./component/Sidebar";
+import Sidebar from "../component/Sidebar";
 
 function CreatePost() {
   const [title, setTitle] = useState("");

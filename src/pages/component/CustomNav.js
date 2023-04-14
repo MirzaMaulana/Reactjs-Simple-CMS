@@ -1,15 +1,17 @@
 import React from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function CustomNav() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
+  const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     alert("Berhasil logout");
+    navigate("/login");
   };
 
   return (

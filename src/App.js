@@ -15,6 +15,9 @@ import ProfileEdit from "./Profile/EditProfile";
 import List from "./Admin/posts/List";
 import CreatePost from "./Admin/posts/Create";
 import UpdatePost from "./Admin/posts/Update";
+import ListTags from "./Admin/tags/List";
+import CreateTags from "./Admin/tags/Create";
+import UpdateTags from "./Admin/tags/Update";
 function App() {
   return (
     <Router>
@@ -28,17 +31,24 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/profile/edit" element={<ProfileEdit />} />
+            {/* POST */}
             <Route path="/dashboard/posts/list" element={<List />} />
             <Route path="/dashboard/posts/create" element={<CreatePost />} />
             <Route
               path="/dashboard/posts/update/:id"
               element={<UpdatePost />}
             />
+            {/* POST */}
+            {/* POST */}
+            <Route path="/dashboard/tags/list" element={<ListTags />} />
+            <Route path="/dashboard/tags/create" element={<CreateTags />} />
+            <Route path="/dashboard/tags/update/:id" element={<UpdateTags />} />
+            {/* POST */}
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
-          <Route path="/Change-password" element={<ChangePassword />} />
+          <Route path="/Change-password/:token" element={<ChangePassword />} />
           <Route
             path="/verification-password"
             element={<VerificationPassword />}

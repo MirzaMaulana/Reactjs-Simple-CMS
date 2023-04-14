@@ -26,7 +26,7 @@ function Login() {
         }
       )
       .then((response) => {
-        console.log(response.data.token);
+        console.log(response.data.status);
         localStorage.setItem("token", response.data.token);
 
         navigate("/profile");

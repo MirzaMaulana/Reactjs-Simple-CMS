@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function ChangePassword() {
-  const [email, setEmail] = useState("");
-  const [token, setToken] = useState("");
+  const [confirm_password, setConfirmPassword] = useState("");
+  const { token } = useParams("");
   const [password, setPassword] = useState("");
-  const [current_password, setCurrentPassword] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   const changePasswordHandler = async (e) => {
@@ -20,7 +20,7 @@ function ChangePassword() {
           email,
           token,
           password,
-          current_password,
+          confirm_password,
         },
         {
           headers: {
@@ -51,7 +51,7 @@ function ChangePassword() {
             </small>
             <form onSubmit={changePasswordHandler}>
               <div className="my-3">
-                <small className="text-secondary">Email address</small>
+                <small className="text-secondary">Email</small>
                 <input
                   type="email"
                   className="form-control rounded-3 mb-3"
@@ -59,20 +59,7 @@ function ChangePassword() {
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                 />
-                <small className="text-secondary">Token Verification</small>
-                <input
-                  type="text"
-                  className="form-control rounded-3"
-                  aria-describedby="emailHelp"
-                  value={token}
-                  onChange={(event) => setToken(event.target.value)}
-                />
-                <div className="form-text mb-3">
-                  <small>
-                    Enter the token that has been sent to your email
-                  </small>
-                </div>
-                <small className="text-secondary">Password</small>
+                <small className="text-secondary">New Password</small>
                 <input
                   type="password"
                   className="form-control rounded-3 mb-3"
@@ -80,13 +67,13 @@ function ChangePassword() {
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                 />
-                <small className="text-secondary">Current Password</small>
+                <small className="text-secondary">Confirm Password</small>
                 <input
                   type="password"
-                  className="form-control rounded-3 mb-4"
+                  className="form-control rounded-3 mb-3"
                   aria-describedby="emailHelp"
-                  value={current_password}
-                  onChange={(event) => setCurrentPassword(event.target.value)}
+                  value={confirm_password}
+                  onChange={(event) => setConfirmPassword(event.target.value)}
                 />
               </div>
               <button type="submit" className="mb-3 btn btn-success w-100">
