@@ -1,15 +1,20 @@
 import React from "react";
 import { Container, Card, Button, Row, Col } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import Sidebar from "../component/Sidebar";
 
 function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [tags, setTags] = useState([]);
   const [tag, setTag] = useState([]);
+  const [is_pinned, setIsPinned] = useState(0);
 
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -30,6 +35,12 @@ function CreatePost() {
       });
   };
 
+  function handleImage(event) {
+    const file = event.target.files[0];
+    setImage(file);
+    setImagePreview(URL.createObjectURL(file));
+  }
+
   const handleTagChange = (event) => {
     const tagId = parseInt(event.target.value);
     if (event.target.checked) {
@@ -41,29 +52,33 @@ function CreatePost() {
 
   const createHandler = async (e) => {
     e.preventDefault();
-    await axios
-      .post(
+
+    try {
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("content", content);
+      formData.append("is_pinned", is_pinned);
+      tag.forEach((id) => formData.append("tag[]", id));
+      formData.append("image", image);
+
+      const response = await axios.post(
         "http://localhost:8000/api/v1/post/create",
-        {
-          title,
-          content,
-          tag,
-        },
+        formData,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
         }
-      )
-      .then((response) => {
-        console.log(response.data.status);
-        navigate("/dashboard/posts/list");
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
+      );
+
+      toast.success(response.data.message);
+      navigate("/dashboard/posts/list");
+    } catch (error) {
+      toast.danger(error.response.data);
+    }
   };
+
   return (
     <Container>
       <Row>
@@ -83,7 +98,7 @@ function CreatePost() {
               >
                 Create Post
               </h3>
-              <form onSubmit={createHandler}>
+              <Form onSubmit={createHandler}>
                 <div className="mb-3">
                   <label className="form-label">Title Post</label>
                   <input
@@ -91,6 +106,45 @@ function CreatePost() {
                     className="form-control"
                     value={title}
                     onChange={(event) => setTitle(event.target.value)}
+                  />
+                </div>
+                <div className="mb-3 d-flex">
+                  <Form.Check
+                    className="me-3"
+                    type="radio"
+                    id="is_pinned1"
+                    name="is_pinned"
+                    label={<span className="bi bi-pin"> Pinned</span>}
+                    value={1}
+                    checked={is_pinned}
+                    onChange={(event) =>
+                      setIsPinned(parseInt(event.target.value))
+                    }
+                  />
+
+                  <Form.Check
+                    type="radio"
+                    id="is_pinned2"
+                    name="is_pinned"
+                    label="No Pin"
+                    value={0}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label d-block">Image Post</label>
+                  {imagePreview && (
+                    <img
+                      src={imagePreview}
+                      alt="selected file"
+                      className="mb-3 rounded-2"
+                      height={100}
+                    />
+                  )}
+
+                  <input
+                    type="file"
+                    className="form-control"
+                    onChange={handleImage}
                   />
                 </div>
                 <div className="mb-3">
@@ -122,7 +176,7 @@ function CreatePost() {
                 <Button type="submit" variant="success">
                   Create Post
                 </Button>
-              </form>
+              </Form>
             </Card.Body>
           </Card>
         </Col>

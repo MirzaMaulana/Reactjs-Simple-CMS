@@ -30,13 +30,14 @@ function SignUp() {
         }
       )
       .then((response) => {
-        console.log(response.data.token);
+        // console.log(response.data.token);
         localStorage.setItem("token", response.data.token);
 
-        navigate("/posts");
+        navigate("/");
+        window.location.reload();
       })
       .catch((error) => {
-        console.log(error.response.data);
+        alert(error.response.data.message);
       });
   };
 

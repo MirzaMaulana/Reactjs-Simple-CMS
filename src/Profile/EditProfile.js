@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 function ProfileEdit() {
@@ -51,11 +52,11 @@ function ProfileEdit() {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        toast.success(response.data.message);
         navigate("/profile");
       })
       .catch((error) => {
-        console.log(error.response.data);
+        toast.danger(error.response.data);
       });
   };
 

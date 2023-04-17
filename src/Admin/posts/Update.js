@@ -2,7 +2,9 @@ import React from "react";
 import { Container, Card, Button, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import Form from "react-bootstrap/Form";
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import Sidebar from "../component/Sidebar";
 
 function UpdatePost() {
@@ -11,6 +13,7 @@ function UpdatePost() {
   const { id } = useParams();
   const [tags, setTags] = useState([]);
   const [tag, setTag] = useState([]);
+  const [is_pinned, setIsPinned] = useState();
 
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -51,6 +54,7 @@ function UpdatePost() {
 
         setTitle(data.title);
         setContent(data.content);
+        setIsPinned(data.is_pinned);
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -65,6 +69,7 @@ function UpdatePost() {
         `http://localhost:8000/api/v1/post/update/${id}`,
         {
           title,
+          is_pinned,
           tag,
           content,
         },
@@ -78,10 +83,11 @@ function UpdatePost() {
       .then((response) => {
         console.log(response.data);
         navigate("/dashboard/posts/list");
-        alert("Sukses Mengupdate post");
+        toast.success("Berhasil Mengupdate Post");
       })
       .catch((error) => {
         console.log(error.response.data);
+        toast.danger("Terjadi Kesalahan Sistem,Silahkan Coba Lagi Nanti");
       });
   };
   return (
@@ -111,6 +117,32 @@ function UpdatePost() {
                     className="form-control"
                     value={title}
                     onChange={(event) => setTitle(event.target.value)}
+                  />
+                </div>
+                <div className="mb-3 d-flex">
+                  <Form.Check
+                    className="me-3"
+                    type="radio"
+                    id="is_pinned1"
+                    name="is_pinned"
+                    label={<span className="bi bi-pin"> Pinned</span>}
+                    value={1}
+                    checked={is_pinned === 1}
+                    onChange={(event) =>
+                      setIsPinned(parseInt(event.target.value))
+                    }
+                  />
+
+                  <Form.Check
+                    type="radio"
+                    id="is_pinned2"
+                    name="is_pinned"
+                    label="No Pin"
+                    value={0}
+                    checked={is_pinned === 0}
+                    onChange={(event) =>
+                      setIsPinned(parseInt(event.target.value))
+                    }
                   />
                 </div>
                 <div className="mb-3">

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import Sidebar from "../component/Sidebar";
 
-function CreateTags() {
+function CreateCategory() {
   const [name, setName] = useState("");
 
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function CreateTags() {
     e.preventDefault();
     await axios
       .post(
-        "http://localhost:8000/api/v1/tag/create",
+        "http://localhost:8000/api/v1/categories/create",
         {
           name,
         },
@@ -28,9 +28,8 @@ function CreateTags() {
         }
       )
       .then((response) => {
-        console.log(response.data.status);
-        navigate("/dashboard/tags/list");
-        toast.success("Berhasil Membuat Tag");
+        toast.success(response.data.message);
+        navigate("/dashboard/categories/list");
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -54,11 +53,11 @@ function CreateTags() {
                 className="text-center my-0"
                 style={{ fontFamily: "Roboto Slab" }}
               >
-                Create Tags
+                Create categories
               </h3>
               <form onSubmit={createHandler}>
                 <div className="mb-3">
-                  <label className="form-label">Name Tags</label>
+                  <label className="form-label">Name categories</label>
                   <input
                     type="text"
                     className="form-control"
@@ -67,7 +66,7 @@ function CreateTags() {
                   />
                 </div>
                 <Button type="submit" variant="success">
-                  Create Tags
+                  Create categories
                 </Button>
               </form>
             </Card.Body>
@@ -78,4 +77,4 @@ function CreateTags() {
   );
 }
 
-export default CreateTags;
+export default CreateCategory;

@@ -8,7 +8,7 @@ function Sidebar() {
       <Nav.Link
         as={Link}
         to="/"
-        className="fs-5 text-dark border-bottom border-dark mb-2"
+        className=" text-dark pt-4 mb-2"
         style={{ fontFamily: "Roboto Slab" }}
       >
         <i className="bi bi-columns-gap text-success"></i> Dashboard
@@ -16,7 +16,7 @@ function Sidebar() {
 
       <NavDropdown
         title={
-          <span className="bi bi-journal text-dark fs-5">
+          <span className="bi bi-journal text-dark ">
             <span className="mx-3">Posts</span>
           </span>
         }
@@ -31,7 +31,7 @@ function Sidebar() {
       </NavDropdown>
       <NavDropdown
         title={
-          <span className="bi bi-tag text-dark fs-5">
+          <span className="bi bi-tag text-dark ">
             <span className="mx-3">Tags</span>
           </span>
         }
@@ -41,6 +41,21 @@ function Sidebar() {
           Create
         </NavDropdown.Item>
         <NavDropdown.Item as={Link} to="/dashboard/tags/list">
+          List
+        </NavDropdown.Item>
+      </NavDropdown>
+      <NavDropdown
+        title={
+          <span className="bi bi-box text-dark ">
+            <span className="mx-3">Categories</span>
+          </span>
+        }
+        align="end"
+      >
+        <NavDropdown.Item as={Link} to="/dashboard/categories/create">
+          Create
+        </NavDropdown.Item>
+        <NavDropdown.Item as={Link} to="/dashboard/categories/list">
           List
         </NavDropdown.Item>
       </NavDropdown>

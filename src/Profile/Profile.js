@@ -10,7 +10,7 @@ function UserProfile() {
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   const fetchData = async () => {
     const response = await axios.get(`http://localhost:8000/api/v1/profile`, {

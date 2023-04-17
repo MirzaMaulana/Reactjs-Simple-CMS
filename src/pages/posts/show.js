@@ -41,11 +41,7 @@ function PostShow() {
           <div>
             <p>{post.views}</p>
             <h1 className="text-center">{post.title}</h1>
-            <img
-              src="https://source.unsplash.com/random/1000x400"
-              alt="Random"
-              className="img-fluid my-4"
-            />
+            <img src={post.image} alt={post.image} className="w-100 my-4" />
             <p>{post.content}</p>
             <p>
               {tags.map((tag) => (

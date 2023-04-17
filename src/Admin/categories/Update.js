@@ -1,22 +1,25 @@
 import React from "react";
 import { Container, Card, Button, Row, Col } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Sidebar from "../component/Sidebar";
 
-function CreateTags() {
+function UpdateCategories() {
   const [name, setName] = useState("");
+  const { id } = useParams();
 
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
-  const createHandler = async (e) => {
+  //mengupdate value post
+  const updateHandler = async (e) => {
     e.preventDefault();
+
     await axios
-      .post(
-        "http://localhost:8000/api/v1/tag/create",
+      .put(
+        `http://localhost:8000/api/v1/categories/update/${id}`,
         {
           name,
         },
@@ -29,8 +32,8 @@ function CreateTags() {
       )
       .then((response) => {
         console.log(response.data.status);
-        navigate("/dashboard/tags/list");
-        toast.success("Berhasil Membuat Tag");
+        navigate("/dashboard/categories/list");
+        toast.success("Berhasil Mengupdate categories");
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -48,17 +51,17 @@ function CreateTags() {
           <Sidebar />
         </Col>
         <Col md={7} className="mx-auto mt-4">
-          <Card className="border-0 rounded shadow">
+          <Card className="border-0 rounded shadow-sm">
             <Card.Body>
               <h3
                 className="text-center my-0"
                 style={{ fontFamily: "Roboto Slab" }}
               >
-                Create Tags
+                Update Categories
               </h3>
-              <form onSubmit={createHandler}>
+              <form onSubmit={updateHandler}>
                 <div className="mb-3">
-                  <label className="form-label">Name Tags</label>
+                  <label className="form-label">Name Categories</label>
                   <input
                     type="text"
                     className="form-control"
@@ -67,7 +70,7 @@ function CreateTags() {
                   />
                 </div>
                 <Button type="submit" variant="success">
-                  Create Tags
+                  Update Categories
                 </Button>
               </form>
             </Card.Body>
@@ -78,4 +81,4 @@ function CreateTags() {
   );
 }
 
-export default CreateTags;
+export default UpdateCategories;

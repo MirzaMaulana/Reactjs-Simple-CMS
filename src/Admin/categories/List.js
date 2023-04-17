@@ -6,31 +6,32 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import Sidebar from "../component/Sidebar";
 
-function ListTags() {
-  const [tags, setTags] = useState([]);
+function ListCategories() {
+  const [categories, setCategories] = useState([]);
   const token = localStorage.getItem("token");
   useEffect(() => {
     fectData();
   }, []);
 
   const fectData = async () => {
-    const response = await axios.get("http://localhost:8000/api/v1/tag/all");
+    const response = await axios.get(
+      "http://localhost:8000/api/v1/categories/all"
+    );
     const data = await response.data.data;
-    setTags(data);
+    setCategories(data);
   };
 
   const deleteHandler = async (id) => {
     axios
-      .delete(`http://localhost:8000/api/v1/tag/delete/${id}`, {
+      .delete(`http://localhost:8000/api/v1/categories/delete/${id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        console.log(response.data.status);
+        toast.success(response.data.message);
         fectData();
-        toast.success("Post berhasil dihapus");
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -52,11 +53,11 @@ function ListTags() {
             <Card.Body>
               <Button
                 as={Link}
-                to={"/dashboard/tags/create"}
+                to={"/dashboard/categories/create"}
                 variant="success"
                 className="mb-3"
               >
-                Add Tag
+                Add category
               </Button>
               <Table striped bordered hover className="mb-1">
                 <thead>
@@ -68,23 +69,23 @@ function ListTags() {
                   </tr>
                 </thead>
                 <tbody>
-                  {tags.map((tag, index) => (
-                    <tr key={tag.id}>
+                  {categories.map((category, index) => (
+                    <tr key={category.id}>
                       <td>{index + 1}</td>
-                      <td>{tag.name}</td>
-                      <td>{tag.created_by}</td>
+                      <td>{category.name}</td>
+                      <td>{category.created_by}</td>
                       <td className="text-center d-flex">
                         <Button
                           as={Link}
                           className="btn me-2 btn-danger btn-sm"
-                          onClick={() => deleteHandler(tag.id)}
+                          onClick={() => deleteHandler(category.id)}
                         >
                           <i className="bi bi-trash"></i>
                         </Button>
                         <Link
                           as={Link}
                           className="btn btn-primary btn-sm"
-                          to={`/dashboard/tags/update/${tag.id}`}
+                          to={`/dashboard/categories/update/${category.id}`}
                         >
                           <i className="bi bi-pen"></i>
                         </Link>
@@ -101,4 +102,4 @@ function ListTags() {
   );
 }
 
-export default ListTags;
+export default ListCategories;

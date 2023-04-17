@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import React from "react";
 import Home from "./pages/Home";
 import PostIndex from "./pages/posts/Index";
@@ -18,11 +20,15 @@ import UpdatePost from "./Admin/posts/Update";
 import ListTags from "./Admin/tags/List";
 import CreateTags from "./Admin/tags/Create";
 import UpdateTags from "./Admin/tags/Update";
+import ListCategories from "./Admin/categories/List";
+import CreateCategories from "./Admin/categories/Create";
+import UpdateCategories from "./Admin/categories/Update";
 function App() {
   return (
     <Router>
       <div>
         <CustomNav />
+        <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<PostIndex />} />
@@ -39,11 +45,25 @@ function App() {
               element={<UpdatePost />}
             />
             {/* POST */}
-            {/* POST */}
+            {/* TAGS */}
             <Route path="/dashboard/tags/list" element={<ListTags />} />
             <Route path="/dashboard/tags/create" element={<CreateTags />} />
             <Route path="/dashboard/tags/update/:id" element={<UpdateTags />} />
-            {/* POST */}
+            {/* TAGS */}
+            {/* Category */}
+            <Route
+              path="/dashboard/categories/list"
+              element={<ListCategories />}
+            />
+            <Route
+              path="/dashboard/categories/create"
+              element={<CreateCategories />}
+            />
+            <Route
+              path="/dashboard/categories/update/:id"
+              element={<UpdateCategories />}
+            />
+            {/* Category */}
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />

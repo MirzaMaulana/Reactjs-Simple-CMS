@@ -26,10 +26,10 @@ function Login() {
         }
       )
       .then((response) => {
-        console.log(response.data.status);
+        // console.log(response.data.status);
         localStorage.setItem("token", response.data.token);
-
-        navigate("/profile");
+        navigate("/");
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error.response.data);

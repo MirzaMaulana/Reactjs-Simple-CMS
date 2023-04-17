@@ -3,6 +3,7 @@ import { Container, Card, Button, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import Sidebar from "../component/Sidebar";
 
 function UpdateTags() {
@@ -32,10 +33,11 @@ function UpdateTags() {
       .then((response) => {
         console.log(response.data.status);
         navigate("/dashboard/tags/list");
-        alert("Sukses Mengupdate Tag");
+        toast.success("Berhasil Mengupdate Tag");
       })
       .catch((error) => {
         console.log(error.response.data);
+        toast.danger("Terjadi Kesalahan Sistem,Silahkan Coba Lagi Nanti");
       });
   };
   return (

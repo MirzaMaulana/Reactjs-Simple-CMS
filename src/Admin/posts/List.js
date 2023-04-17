@@ -3,6 +3,7 @@ import { Container, Card, Button, Table, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import Sidebar from "../component/Sidebar";
 
 function List() {
@@ -27,13 +28,12 @@ function List() {
         },
       })
       .then((response) => {
-        console.log(response.data.status);
         fectData();
+        toast.success(response.data.message);
       })
       .catch((error) => {
-        console.log(error.response.data);
+        toast.danger(error.response.data);
       });
-    alert("Tag Berhasil Dihapus");
   };
   return (
     <Container>
@@ -60,6 +60,7 @@ function List() {
                 <thead>
                   <tr>
                     <th>NO.</th>
+                    <th>PIN</th>
                     <th>TITLE</th>
                     <th>CREATED BY</th>
                     <th>AKSI</th>
@@ -68,10 +69,13 @@ function List() {
                 <tbody>
                   {posts.map((post, index) => (
                     <tr key={post.id}>
-                      <td>{index + 1}</td>
+                      <td width={20}>{index + 1}</td>
+                      <td width={20}>
+                        {post.is_pinned === 1 && <i className="bi bi-pin"></i>}
+                      </td>
                       <td>{post.title}</td>
                       <td>{post.created_by}</td>
-                      <td className="text-center d-flex">
+                      <td className="text-center d-flex" width={40}>
                         <Button
                           as={Link}
                           className="btn me-2 btn-danger btn-sm"
