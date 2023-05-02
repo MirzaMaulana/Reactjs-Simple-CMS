@@ -8,6 +8,7 @@ function PostShow() {
   const token = localStorage.getItem("token");
   const [post, setPost] = useState({});
   const [tags, setTags] = useState([]);
+  const [categories, setCategories] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -21,6 +22,7 @@ function PostShow() {
         );
         const { data } = response.data;
         setTags(data.tags);
+        setCategories(data.categories);
         setPost(data);
       } catch (error) {
         console.log(error.response.data);
@@ -41,6 +43,19 @@ function PostShow() {
           <div>
             <p>{post.views}</p>
             <h1 className="text-center">{post.title}</h1>
+            <p className="text-center">
+              {categories.map((category) => (
+                <Link
+                  key={category.id}
+                  as={Link}
+                  to={`/posts/category/${category.name}`}
+                  className="d-inline-block me-2 text-decoration-none p-1 rounded-3 text-dark"
+                  style={{ border: "1px solid black" }}
+                >
+                  {category.name}
+                </Link>
+              ))}
+            </p>
             <img src={post.image} alt={post.image} className="w-100 my-4" />
             <p>{post.content}</p>
             <p>
@@ -48,7 +63,7 @@ function PostShow() {
                 <Link
                   key={tag.id}
                   as={Link}
-                  to={`/posts/${tag.name}`}
+                  to={`/posts/tag/${tag.name}`}
                   className="text-decoration-none me-2"
                 >
                   #{tag.name}

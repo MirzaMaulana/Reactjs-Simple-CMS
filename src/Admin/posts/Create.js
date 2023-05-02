@@ -14,6 +14,8 @@ function CreatePost() {
   const [imagePreview, setImagePreview] = useState(null);
   const [tags, setTags] = useState([]);
   const [tag, setTag] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState();
   const [is_pinned, setIsPinned] = useState(0);
 
   const navigate = useNavigate();
@@ -21,6 +23,7 @@ function CreatePost() {
 
   useEffect(() => {
     tagsData();
+    categoriesData();
   }, []);
 
   const tagsData = async () => {
@@ -29,6 +32,18 @@ function CreatePost() {
       .then((response) => {
         const data = response.data.data;
         setTags(data);
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  };
+
+  const categoriesData = async () => {
+    await axios
+      .get("http://localhost:8000/api/v1/categories/all")
+      .then((response) => {
+        const data = response.data.data;
+        setCategories(data);
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -59,6 +74,7 @@ function CreatePost() {
       formData.append("content", content);
       formData.append("is_pinned", is_pinned);
       tag.forEach((id) => formData.append("tag[]", id));
+      formData.append("category", category);
       formData.append("image", image);
 
       const response = await axios.post(
@@ -155,6 +171,7 @@ function CreatePost() {
                     onChange={(event) => setContent(event.target.value)}
                     rows="3"
                   ></textarea>
+                  <p className="form-label">Tags</p>
                   {tags.map((tag) => (
                     <div key={tag.id} className="form-check form-check-inline">
                       <input
@@ -172,6 +189,32 @@ function CreatePost() {
                       </label>
                     </div>
                   ))}
+                  <div className="mt-3">
+                    <p className="form-label">Category</p>
+                    {categories.map((category) => (
+                      <div
+                        key={category.id}
+                        className="form-check form-check-inline"
+                      >
+                        <input
+                          className="form-check-input me-2"
+                          name="category"
+                          type="radio"
+                          id={`category${category.id}`}
+                          value={category.id}
+                          onChange={(event) =>
+                            setCategory(parseInt(event.target.value))
+                          }
+                        />
+                        <label
+                          className="form-check-label text-primary"
+                          htmlFor={`category${category.id}`}
+                        >
+                          #{category.name}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <Button type="submit" variant="success">
                   Create Post

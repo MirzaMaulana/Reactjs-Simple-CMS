@@ -33,7 +33,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<PostIndex />} />
           <Route path="/post/:id" element={<PostShow />} />
-          <Route path="/posts/:tag" element={<PostIndex />} />
+          <Route path="/posts/tag/:tag" element={<PostIndex />} />
+          <Route path="/posts/category/:category" element={<PostIndex />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/profile/edit" element={<ProfileEdit />} />

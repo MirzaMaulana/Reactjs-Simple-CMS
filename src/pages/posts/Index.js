@@ -11,6 +11,7 @@ import axios from "axios";
 function PostIndex() {
   const [posts, setPosts] = useState([]);
   const { tag } = useParams("");
+  const { category } = useParams("");
   const [pinPost, setPinPost] = useState([]);
   useEffect(() => {
     fectData();
@@ -20,6 +21,8 @@ function PostIndex() {
     let api = "http://localhost:8000/api/v1/post/list";
     if (tag) {
       api += `?tag=${tag}`;
+    } else if (category) {
+      api += `?category=${category}`;
     }
     const response = await axios.get(api);
     const data = await response.data.data;
@@ -39,32 +42,36 @@ function PostIndex() {
       <Row>
         {tag ? (
           <h2 className="mt-2">#{tag}</h2>
+        ) : category ? (
+          <h2 className="mt-2">{category}</h2>
         ) : (
-          <h2 className="mt-2">Most Populer</h2>
+          <h2 className="mt-2">Most Popular</h2>
         )}
-
-        <Carousel
-          activeIndex={index}
-          className="mt-3 mb-4"
-          onSelect={handleSelect}
-        >
-          {pinPost.map((pinned) => (
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src={pinned.image}
-                height={500}
-                alt=""
-              />
-              <Carousel.Caption>
-                <h3>{pinned.title}</h3>
-                <p>
-                  {pinned.content.replace(/<[^>]+>/g, "").substring(0, 50)}...
-                </p>
-              </Carousel.Caption>
-            </Carousel.Item>
-          ))}
-        </Carousel>
+        {!tag && !category && (
+          <Carousel
+            activeIndex={index}
+            className="mt-3 mb-4"
+            onSelect={handleSelect}
+          >
+            {pinPost.map((pinned) => (
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src={pinned.image}
+                  height={500}
+                  alt=""
+                />
+                <Carousel.Caption>
+                  <h3>{pinned.title}</h3>
+                  <p>
+                    {pinned.content.replace(/<[^>]+>/g, "").substring(0, 50)}
+                    ...
+                  </p>
+                </Carousel.Caption>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        )}
 
         {posts.map(
           (post) =>
